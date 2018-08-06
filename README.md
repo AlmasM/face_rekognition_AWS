@@ -3,25 +3,32 @@ Setting up and calling AWS Face Rekognition API through Raspberry PI
 
 
 ### Outline
-1. [Introduction](introduction)
-2. [Set up AWS on Raspberry PI]()
-3. [Camera Set Up on Raspberry PI](camera-set-up-on-raspberry-pi)
-4. [Upload Images to Amazon S3 Bucket](upload-images-to-s3-bucket)
-5. [Upload Faces to Collection](upload-faces-to-collection)
+1. [Introduction](#introduction)
+2. [Set up AWS on Raspberry PI](#set-up-aws-on-raspberry-pi)
+3. [Camera Set Up on Raspberry PI](#camera-set-up-on-raspberry-pi)
+4. [Upload Images to Amazon S3 Bucket](#upload-images-to-s3-bucket)
+5. [Upload Faces to Collection](#upload-faces-to-collection)
 6. [Identify Faces from Collection, Determine Emotions and Display on Web browser](identify-faces-from-collection-determin-emotions-and-display-on-web-browser)
-   - [Identifying Emotions]()
-   - [Finding faces in the Database]()
-   - [Opening Web Browser using Python]()
+   - Identifying Emotions
+   - Upload images to S3 bucket and create collection
+   - Finding faces in the Database
+   - Opening Web Browser using Python
 5. [Putting it together](putting-it-all-together)
 
 ### Introduction
 Following repo will provide a guide on how to set up your Amazon AWS Rekognition, set up camera on Raspberry PI, 
 identify emotions of the people in the picture and classify each face from known database.
 
+### Set up AWS on Raspberry PI
+
+Installation is straighforward and pretty easy when you follow [Installation Guide]( http://boto3.readthedocs.io/en/latest/guide/quickstart.html#installation). Then, set up [configuration details]( http://boto3.readthedocs.io/en/latest/guide/quickstart.html#configuration)
+ 
 
 ### Camera Set Up on Raspberry PI
 
-  - Hardware
+  - **Hardware**
+      
+      Installing and attaching camera on Raspberry PI is straightforward, which can be found [here](https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/4)
   - **Software**
   
     Python code `camera.py` will start camera on Raspberry PI through web browser. This python code already includes HTML code and some CSS
@@ -53,6 +60,8 @@ identify emotions of the people in the picture and classify each face from known
 
 ### Upload Faces to Collection
 
+**Note** I found concept of `collection` a bit confusing at first. Essentially, every `bucket` can contain a `collection`. Moving forward, you will create bucket in S3 and upload your files into it. Bucket will contain physical copies of your files. Then, using those files in S3 bucket, you will create `collection` items, which can be characterized as virtually grouped items in S3
+
 Open file `collection_faces.py` and do the following:
 
  - Replace variable value `rootdir` to a *directory* where all the faces are located. In this case, all the people you want to have in your
@@ -67,6 +76,7 @@ Open file `collection_faces.py` and do the following:
  - Function `add_faces_collection(collectionId, photo_l, bucket)` will take items from `photo_l` list and put them in collection
  and bucket you specified. **Result** will be a bucket & collection which will contain your *known people* dataset
 
+**Note** The following code has been used from [Amazon AWS Rekognition Documentation](https://docs.aws.amazon.com/rekognition/latest/dg/create-collection-procedure.html)
 
 ### Identify Faces from Collection, Determine Emotions and Display on Web browser
 
@@ -87,15 +97,17 @@ When you run the following code in your terminal `python test_collection.py`, th
      - The result will be, new file `currIm_emotion.jpg` with all the emotions identified for each face in the `currIm.jpg` image.
   4. Once both `emotion_main()` and `recognition_main()` executed, the result will be projected on web browser of your choosing *automatically*. 
   
+ 
+ **Note** The following code has been used from [Amazon AWS Rekognition Documentation](https://docs.aws.amazon.com/rekognition/latest/dg/search-face-with-id-procedure.html)
 
 
 ### Putting it all together
 1. Open terminal and type `python3 camera.py`
 2. Open web browser and type `http://0.0.0.0:8000/index.html`
-2. Open new terminal window, or new tab and type `python test_collection.py`
+3. Open new terminal window, or new tab and type `python test_collection.py`
    - You can also run both `camera.py` and `test_collection.py` in the same terminal window. In that case, type 
    ```
    $ python camera.py &
    $ python test_collection.py
    ```
-  
+ 4. **Result** webpage with 3 images: original image (currIm.jpg), identified faces image, and emotion + identified faces
