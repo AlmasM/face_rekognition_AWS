@@ -8,12 +8,12 @@ Setting up and calling AWS Face Rekognition API through Raspberry PI
 3. [Camera Set Up on Raspberry PI](#camera-set-up-on-raspberry-pi)
 4. [Upload Images to Amazon S3 Bucket](#upload-images-to-s3-bucket)
 5. [Upload Faces to Collection](#upload-faces-to-collection)
-6. [Identify Faces from Collection, Determine Emotions and Display on Web browser](https://github.com/AlmasM/face_rekognition_AWS/blob/master/README.md#identify-faces-from-collection-determine-emotions-and-display-on-web-browser)
+6. [Identify Faces from Collection, Determine Emotions and Display on Web browser](#identify-faces-from-collection-determine-emotions-and-display-on-web-browser)
    - Identifying Emotions
    - Upload images to S3 bucket and create collection
    - Finding faces in the Database
    - Opening Web Browser using Python
-5. [Putting it together](https://github.com/AlmasM/face_rekognition_AWS/blob/master/README.md#putting-it-all-together)
+5. [Putting it together](#putting-it-all-together)
 
 ### Introduction
 Following repo will provide a guide on how to set up your Amazon AWS Rekognition, set up camera on Raspberry PI, 
